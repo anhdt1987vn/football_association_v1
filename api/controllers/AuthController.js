@@ -20,7 +20,7 @@ function _onPassportAuth(req, res, error, user, info) {
     console.log(user);
     return res.ok({
         // TODO: replace with new type of cipher service
-        token: CipherService.createToken(user),
+        access_token: CipherService.createToken(user),
         refresh_token: user.refresh_token,
         limit_of_refresh_token: user.limit_of_refresh_token,
         user: user
@@ -83,7 +83,45 @@ module.exports = {
      * @param {Object} res Response object
      */
     refresh_token: function (req, res) {
-        // TODO: implement refreshing tokens
-        res.badRequest(null, null, 'Not implemented yet');
+        console.log(req.allParams());   // debug
+
+        var refresh_token = req.param('refresh_token');
+        var user_id = req.param('user_id');
+
+        User.findOne({
+                id: user_id,
+                refresh_token: refresh_token
+            })
+            .exec(function (err, user){
+                if(err){
+                    return res.serverError(err);
+                }
+                if(!user){
+                    console.log('Do not see user');     // debug
+                    return res.notFound('Could not find user id: ' + user_id + ', sorry.');
+                }
+                //console.log(user.limit_of_refresh_token);      // debug
+
+                if(user.limit_of_refresh_token > 0){
+                    User.update({id: user_id}, {limit_of_refresh_token: user.limit_of_refresh_token - 1})
+                    .exec(function (err, updated){
+                        if (err) {
+                            return res.serverError(err);
+                        }
+                        console.log("Updated: " + updated);     // debug
+                        return res.ok({
+                            access_token: CipherService.createToken(user),
+                            limit_of_refresh_token: user.limit_of_refresh_token
+                        });
+                    });
+                }else{
+                    return res.refreshtokenExpried();
+                }
+                
+
+                
+            });
+
+        //res.badRequest(null, null, 'Not implemented yet');
     }
 };
