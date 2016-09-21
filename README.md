@@ -1,5 +1,4 @@
 # freeman
 
-A [Sails](http://sailsjs.org) application to demonstrate basic Sails functionality
-with an Aurelia front end.
+A [Sails](http://sailsjs.org) application to build servcies(API)
 # football_association_v1
