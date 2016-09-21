@@ -1,8 +1,8 @@
 {
-  "name": "nozus-web",
+  "name": "freeman",
   "private": true,
   "version": "0.0.0",
-  "description": "A Sails application",
+  "description": "Football association",
   "keywords": [],
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -40,7 +40,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eswann/nozus-web.git"
+    "url": "https://github.com/anhdt1987vn/football_association_v1.git"
   },
   "author": "anonymous node/sails user",
   "license": ""
