@@ -17,6 +17,6 @@ module.exports = function (data, code, message, root) {
 
     this.req._sails.log.silly('Sent (700 REFRESH_TOKEN_IS_EXPRIED)\n', response);
 
-    this.res.status(201);
+    this.res.status(700);
     this.res.jsonx(response);
 };
