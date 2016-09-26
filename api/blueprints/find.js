@@ -56,6 +56,9 @@ module.exports = function findRecords (req, res) {
   .limit( actionUtil.parseLimit(req) )
   .skip( actionUtil.parseSkip(req) )
   .sort( actionUtil.parseSort(req) );
+
+  console.log(query);
+
   query = actionUtil.populateRequest(query, req);
   query.exec(function found(err, matchingRecords) {
     if (err) return res.serverError(err);
