@@ -53,7 +53,11 @@ module.exports = {
 
         limit_of_refresh_token: {
             type: 'integer',
-            defaultsTo: '25'
+            defaultsTo: 25
+        },
+
+        owner: {
+            model: 'club'
         },
 
         toJSON: function () {
